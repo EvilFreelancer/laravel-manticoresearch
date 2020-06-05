@@ -1,0 +1,47 @@
+{
+  "name": "evilfreelancer/laravel-manticoresearch",
+  "description": "An easy way to use the official ManticoreSearch client in your Laravel applications",
+  "type": "library",
+  "homepage": "https://github.com/EvilFreelancer/laravel-manticoresearch",
+  "require": {
+    "php": "^7.2",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "manticoresoftware/manticoresearch-php": "dev-master",
+    "illuminate/support": "^6.0|^7.0",
+    "illuminate/contracts": "^6.0|^7.0"
+  },
+  "require-dev": {
+    "limedeck/phpunit-detailed-printer": "^5.0",
+    "orchestra/testbench": "^4.0|^5.0",
+    "phpunit/phpunit": "^8.0",
+    "roave/security-advisories": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Paul Rock",
+      "email": "paul@drteam.rocks"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "LaravelManticoreSearch\\": "./src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LaravelManticoreSearch\\Tests\\": "./tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LaravelManticoreSearch\\ServiceProvider"
+      ],
+      "aliases": {
+        "ManticoreSearch": "LaravelManticoreSearch\\Facade"
+      }
+    }
+  }
+}

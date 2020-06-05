@@ -1,2 +1,8 @@
-# laravel-manticoresearch
-An easy way to use the official Manticore Search client in your Laravel applications
+# Laravel ManticoreSearch plugin
+
+An easy way to use the official ManticoreSearch client in your Laravel applications.
+
+## Links
+
+* https://github.com/manticoresoftware/manticoresearch-php
+* https://github.com/cviebrock/laravel-elasticsearch
