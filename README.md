@@ -24,7 +24,7 @@ by adding the following to your application's `.env` file (with appropriate valu
 ```ini
 MANTICORESEARCH_HOST=localhost
 MANTICORESEARCH_PORT=9200
-MANTICORESEARCH_TRANSPORT=http
+MANTICORESEARCH_TRANSPORT=Http
 MANTICORESEARCH_USER=
 MANTICORESEARCH_PASS=
 ```
