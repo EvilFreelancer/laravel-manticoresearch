@@ -1,13 +1,13 @@
 <?php
 
-namespace LaravelManticoreSearch;
+namespace ManticoreSearch\Laravel;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
  * Class Facade
  *
- * @package Cviebrock\LaravelElasticsearch
+ * @package Cviebrock\LaravelManticoresearch
  */
 class Facade extends BaseFacade
 {

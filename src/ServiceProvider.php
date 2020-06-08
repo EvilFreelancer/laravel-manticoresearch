@@ -1,13 +1,17 @@
 <?php
 
-namespace LaravelManticoreSearch;
+namespace ManticoreSearch\Laravel;
 
+use Illuminate\Foundation\Application as LaravelApplication;
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Lumen\Application as LumenApplication;
+use Manticoresearch\Index;
 
 /**
  * Class ServiceProvider
  *
- * @package Cviebrock\LaravelElasticsearch
+ * @package ManticoreSearch\Laravel
  */
 class ServiceProvider extends BaseServiceProvider
 {
@@ -18,9 +22,15 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/../config/manticoresearch.php' => config_path('manticoresearch.php'),
-        ]);
+        $source = __DIR__ . '/../config/manticoresearch.php';
+
+        if ($this->app instanceof LaravelApplication) {
+            $this->publishes([$source => config_path('manticoresearch.php')], 'config');
+        } elseif ($this->app instanceof LumenApplication) {
+            $this->app->configure('manticoresearch');
+        }
+
+        $this->mergeConfigFrom($source, 'manticoresearch');
     }
 
     /**
@@ -30,10 +40,20 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/manticoresearch.php', 'manticoresearch'
-        );
+        $app = $this->app;
 
-        $this->app->bind(Wrapper::class);
+        $app->singleton('manticoresearch.factory', static function ($app) {
+            return new Factory();
+        });
+
+        $app->singleton('manticoresearch', static function ($app) {
+            return new Manager($app, $app['manticoresearch.factory']);
+        });
+
+        $app->alias('manticoresearch', Manager::class);
+
+        $app->singleton(Index::class, function (Container $app) {
+            return $app->make('manticoresearch')->connection();
+        });
     }
 }

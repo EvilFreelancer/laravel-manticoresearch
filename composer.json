@@ -26,21 +26,21 @@
   ],
   "autoload": {
     "psr-4": {
-      "LaravelManticoreSearch\\": "./src"
+      "ManticoreSearch\\Laravel\\": "./src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "LaravelManticoreSearch\\Tests\\": "./tests"
+      "ManticoreSearch\\Laravel\\Tests\\": "./tests"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "LaravelManticoreSearch\\ServiceProvider"
+        "ManticoreSearch\\Laravel\\ServiceProvider"
       ],
       "aliases": {
-        "ManticoreSearch": "LaravelManticoreSearch\\Facade"
+        "ManticoreSearch": "ManticoreSearch\\Laravel\\Facade"
       }
     }
   }
