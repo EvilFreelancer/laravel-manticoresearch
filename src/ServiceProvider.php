@@ -42,11 +42,11 @@ class ServiceProvider extends BaseServiceProvider
     {
         $app = $this->app;
 
-        $app->singleton('manticoresearch.factory', static function ($app) {
+        $app->singleton('manticoresearch.factory', static function (Container $app) {
             return new Factory();
         });
 
-        $app->singleton('manticoresearch', static function ($app) {
+        $app->singleton('manticoresearch', static function (Container $app) {
             return new Manager($app, $app['manticoresearch.factory']);
         });
 

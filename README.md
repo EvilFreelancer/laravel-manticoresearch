@@ -69,7 +69,7 @@ $return = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
 ```
 
 Lumen users who aren't using facades will need to use dependency injection,
-or the application container in order to get the ES service object:
+or the application container in order to get the ManticoreSearch Index object:
 
 ```php
 // using injection:
