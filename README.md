@@ -1,6 +1,6 @@
 # Laravel ManticoreSearch plugin
 
-An easy way to use the [official ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php) in your Laravel on Lumen application applications.
+An easy way to use the [official ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php) in your Laravel or Lumen applications.
 
 ```sh
 composer require evilfreelancer/laravel-manticoresearch
