@@ -89,8 +89,38 @@ class ServiceProviderTests extends TestCase
 
     public function testFacadeConnection(): void
     {
+        // Check default
+        $connectionName = \ManticoreSearch::getDefaultConnection();
+        self::assertEquals('default', $connectionName);
+
+        // Check updated
         $connection = \ManticoreSearch::connection('second');
         self::assertInstanceOf(Client::class, $connection);
+        $connectionName = \ManticoreSearch::getDefaultConnection();
+        self::assertEquals('default', $connectionName);
+
+        // Check setter
+        \ManticoreSearch::setDefaultConnection('third');
+        $connectionName = \ManticoreSearch::getDefaultConnection();
+        self::assertEquals('third', $connectionName);
+    }
+
+    public function testFacadeGetConnections(): void
+    {
+        $count = \ManticoreSearch::getConnections();
+        $this->assertEmpty($count);
+
+        \ManticoreSearch::connection('default');
+        \ManticoreSearch::connection('second');
+
+        $count = \ManticoreSearch::getConnections();
+        $this->assertCount(2, $count);
+    }
+
+    public function testFacadeConnectionException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        \ManticoreSearch::connection('third');
     }
 
     public function testFacadeWorks(): void
