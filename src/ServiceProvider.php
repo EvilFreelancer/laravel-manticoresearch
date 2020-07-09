@@ -12,6 +12,7 @@ use Manticoresearch\Index;
  * Class ServiceProvider
  *
  * @package ManticoreSearch\Laravel
+ * @codeCoverageIgnore
  */
 class ServiceProvider extends BaseServiceProvider
 {
@@ -52,7 +53,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $app->alias('manticoresearch', Manager::class);
 
-        $app->singleton(Index::class, function (Container $app) {
+        $app->singleton(Index::class, static function (Container $app) {
             return $app->make('manticoresearch')->connection();
         });
     }
