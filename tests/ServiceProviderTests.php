@@ -2,6 +2,7 @@
 
 namespace ManticoreSearch\Laravel\Tests;
 
+use Manticoresearch\Endpoints\Pq;
 use Manticoresearch\Index;
 use ManticoreSearch\Laravel\Factory;
 use ManticoreSearch\Laravel\Manager;
@@ -65,6 +66,7 @@ class ServiceProviderTests extends TestCase
         'indices',
         'nodes',
         'cluster',
+        'index',
         'bulk',
         'suggest',
         'keywords',
@@ -76,43 +78,43 @@ class ServiceProviderTests extends TestCase
     public function testAbstractsAreLoaded(): void
     {
         $factory = app('manticoresearch.factory');
-        $this->assertInstanceOf(Factory::class, $factory);
+        self::assertInstanceOf(Factory::class, $factory);
 
         $manager = app('manticoresearch');
-        $this->assertInstanceOf(Manager::class, $manager);
+        self::assertInstanceOf(Manager::class, $manager);
 
         $client = app(Client::class);
-        $this->assertInstanceOf(Client::class, $client);
+        self::assertInstanceOf(Client::class, $client);
     }
 
     public function testFacadeConnection(): void
     {
-        $connection = ManticoreSearch::connection('second');
-        $this->assertInstanceOf(Index::class, $connection);
-
-        $client = $connection->getClient();
-        $this->assertInstanceOf(Client::class, $client);
+        $connection = \ManticoreSearch::connection('second');
+        self::assertInstanceOf(Client::class, $connection);
     }
 
     public function testFacadeWorks(): void
     {
-        $index = ManticoreSearch::index('test');
-        $this->assertInstanceOf(Index::class, $index);
-        $this->assertEquals('test', $index->getName());
+        $client = ManticoreSearch::client();
+        $this->assertInstanceOf(Client::class, $client);
 
-//        $client = ManticoreSearch::client();
-//        $this->assertInstanceOf(Client::class, $client);
+        $index = \ManticoreSearch::index('test');
+        self::assertInstanceOf(Index::class, $index);
+        self::assertEquals('test', $index->getName());
+
+        $pq = \ManticoreSearch::pq();
+        self::assertInstanceOf(Pq::class, $pq);
     }
 
     public function testFacadeIndexHasMethods(): void
     {
-        $index = ManticoreSearch::index('test');
-        $this->assertEquals(get_class_methods($index), $this->index);
+        $index = \ManticoreSearch::index('test');
+        self::assertEquals(get_class_methods($index), $this->index);
     }
 
-//    public function testFacadeClientHasMethods(): void
-//    {
-//        $index = ManticoreSearch::client();
-//        $this->assertEquals(get_class_methods($index), $this->client);
-//    }
+    public function testFacadeClientHasMethods(): void
+    {
+        $index = \ManticoreSearch::client();
+        $this->assertEquals(get_class_methods($index), $this->client);
+    }
 }
