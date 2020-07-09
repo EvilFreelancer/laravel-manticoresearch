@@ -4,7 +4,8 @@ namespace ManticoreSearch\Laravel;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Arr;
-use Manticoresearch\Index;
+use InvalidArgumentException;
+use Manticoresearch\Client;
 
 /**
  * Class Manager
@@ -49,9 +50,9 @@ class Manager
      *
      * @param string|null $name Name of connection
      *
-     * @return \ManticoreSearch\Index
+     * @return \ManticoreSearch\Client
      */
-    public function connection(string $name = null): Index
+    public function connection(string $name = null): Client
     {
         $name = $name ?: $this->getDefaultConnection();
 
@@ -89,9 +90,9 @@ class Manager
      *
      * @param string $name Name of connection
      *
-     * @return \ManticoreSearch\Index
+     * @return \ManticoreSearch\Client
      */
-    protected function makeConnection(string $name): Index
+    protected function makeConnection(string $name): Client
     {
         $config = $this->getConfig($name);
 
@@ -111,7 +112,7 @@ class Manager
         $connections = $this->app['config']['manticoresearch.connections'];
 
         if (null === $config = Arr::get($connections, $name)) {
-            throw new \InvalidArgumentException("ManticoreSearch connection [$name] not configured.");
+            throw new InvalidArgumentException("ManticoreSearch connection [$name] not configured.");
         }
 
         return $config;
@@ -128,21 +129,26 @@ class Manager
     }
 
     /**
-     * Instantiate Index object, pass name of index if need
+     * Return all of the created connections.
      *
-     * @param string $name Index name
-     *
-     * @return \Manticoresearch\Index
+     * @return \Manticoresearch\Client
      */
-    public function index(string $name = null): Index
+    public function client(): Client
     {
-        $index = $this->connection();
+        return $this->connection();
+    }
 
-        if (null !== $name) {
-            $index->setName($name);
-        }
-
-        return $index;
+    /**
+     * Dynamically pass methods to the default connection.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return mixed
+     */
+    public function __call(string $method, array $parameters)
+    {
+        return call_user_func_array([$this->connection(), $method], $parameters);
     }
 
 }

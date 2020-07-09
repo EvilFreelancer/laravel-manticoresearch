@@ -3,7 +3,6 @@
 namespace ManticoreSearch\Laravel;
 
 use Manticoresearch\Client;
-use Manticoresearch\Index;
 
 class Factory
 {
@@ -12,11 +11,10 @@ class Factory
      *
      * @param array $connection List of settings for connecting to server(s)
      *
-     * @return \ManticoreSearch\Index
+     * @return \ManticoreSearch\Client
      */
-    public function make(array $connection): Index
+    public function make(array $connection): Client
     {
-        $client = new Client($connection);
-        return new Index($client);
+        return new Client($connection);
     }
 }
