@@ -65,7 +65,23 @@ any connection (see the `defaultConnection` setting and `connections` array in
 the configuration file).
 
 ```php
-$return = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
+$index = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
+$pq = ManticoreSearch::connection('connectionName')->pq();
+$cluster = ManticoreSearch::connection('connectionName')->cluster();
+$indices = ManticoreSearch::connection('connectionName')->indices();
+$nodes = ManticoreSearch::connection('connectionName')->nodes();
+
+// etc...
+```
+
+methods of Client class:
+
+```php
+ManticoreSearch::connection('connectionName')->sql($params);
+ManticoreSearch::connection('connectionName')->replace($params);
+ManticoreSearch::connection('connectionName')->delete($params);
+
+// etc...
 ```
 
 Lumen users who aren't using facades will need to use dependency injection,
