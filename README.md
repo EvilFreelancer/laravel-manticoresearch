@@ -1,3 +1,11 @@
+[![Latest Stable Version](https://poser.pugx.org/evilfreelancer/laravel-manticoresearch/v/stable)](https://packagist.org/packages/evilfreelancer/laravel-manticoresearch)
+[![Total Downloads](https://poser.pugx.org/evilfreelancer/laravel-manticoresearch/downloads)](https://packagist.org/packages/evilfreelancer/laravel-manticoresearch)
+[![Build Status](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/badges/build.png?b=master)](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/?branch=master)
+[![Code Climate](https://codeclimate.com/github/EvilFreelancer/laravel-manticoresearch/badges/gpa.svg)](https://codeclimate.com/github/EvilFreelancer/laravel-manticoresearch)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/EvilFreelancer/laravel-manticoresearch/?branch=master)
+[![License](https://poser.pugx.org/evilfreelancer/laravel-manticoresearch/license)](https://packagist.org/packages/evilfreelancer/laravel-manticoresearch)
+
 # Laravel ManticoreSearch plugin
 
 An easy way to use the [official ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php) in your Laravel or Lumen applications.
