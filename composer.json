@@ -16,10 +16,6 @@
     "orchestra/testbench": "^4.0|^5.0",
     "phpunit/phpunit": "^8.0",
     "roave/security-advisories": "dev-master",
-    "phpstan/phpstan": "^0.12.32",
-    "phpstan/phpstan-strict-rules": "^0.12.2",
-    "thecodingmachine/phpstan-strict-rules": "^0.12.0",
-    "ergebnis/phpstan-rules": "^0.15.0",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
   "license": "MIT",
@@ -35,12 +31,12 @@
   },
   "autoload": {
     "psr-4": {
-      "ManticoreSearch\\Laravel\\": "./src"
+      "ManticoreSearch\\Laravel\\": "./src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\ManticoreSearch\\Laravel\\": "./tests"
+      "Tests\\ManticoreSearch\\Laravel\\": "./tests/"
     }
   },
   "scripts": {
