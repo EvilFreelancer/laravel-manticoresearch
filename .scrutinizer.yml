@@ -1,23 +1,23 @@
-build:
-  environment:
-    php:
-      version: 7.4.7
-  nodes:
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
-  tests:
-    override:
-      - command: 'vendor/bin/phpunit --coverage-clover=coverage.xml'
-        coverage:
-          file: 'coverage.xml'
-          format: 'php-clover'
-
 filter:
   excluded_paths:
     - ".github/"
-    - "examples/"
     - "tests/"
     - "vendor/"
-    - "configs/"
+    - "config/"
+
+checks:
+  php: true
+
+coding_style:
+  php:
+    spaces:
+      around_operators:
+        concatenation: true
+
+build:
+  tests:
+    override:
+      - command: 'php ./vendor/bin/phpunit --coverage-clover=coverage-clover'
+        coverage:
+          file: 'coverage-clover'
+          format: 'php-clover'
