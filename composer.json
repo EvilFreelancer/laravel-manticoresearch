@@ -15,7 +15,12 @@
     "limedeck/phpunit-detailed-printer": "^5.0",
     "orchestra/testbench": "^4.0|^5.0",
     "phpunit/phpunit": "^8.0",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "phpstan/phpstan": "^0.12.32",
+    "phpstan/phpstan-strict-rules": "^0.12.2",
+    "thecodingmachine/phpstan-strict-rules": "^0.12.0",
+    "ergebnis/phpstan-rules": "^0.15.0",
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "license": "MIT",
   "authors": [
@@ -24,6 +29,10 @@
       "email": "paul@drteam.rocks"
     }
   ],
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist"
+  },
   "autoload": {
     "psr-4": {
       "ManticoreSearch\\Laravel\\": "./src"
@@ -31,8 +40,16 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ManticoreSearch\\Laravel\\Tests\\": "./tests"
+      "Tests\\ManticoreSearch\\Laravel\\": "./tests"
     }
+  },
+  "scripts": {
+    "test:lint": "php-cs-fixer fix -v --dry-run",
+    "test:unit": "phpunit",
+    "test": [
+      "@test:lint",
+      "@test:unit"
+    ]
   },
   "extra": {
     "laravel": {
