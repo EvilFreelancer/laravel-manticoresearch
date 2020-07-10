@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
 class Facade extends BaseFacade
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getFacadeAccessor(): string
     {
