@@ -1,12 +1,11 @@
 <?php
 
-namespace ManticoreSearch\Laravel\Tests;
+namespace Tests\ManticoreSearch\Laravel;
 
 use Manticoresearch\Endpoints\Pq;
 use Manticoresearch\Index;
 use ManticoreSearch\Laravel\Factory;
 use ManticoreSearch\Laravel\Manager;
-use ManticoreSearch;
 use Manticoresearch\Client;
 
 class ServiceProviderTests extends TestCase
@@ -108,13 +107,13 @@ class ServiceProviderTests extends TestCase
     public function testFacadeGetConnections(): void
     {
         $count = \ManticoreSearch::getConnections();
-        $this->assertEmpty($count);
+        self::assertEmpty($count);
 
         \ManticoreSearch::connection('default');
         \ManticoreSearch::connection('second');
 
         $count = \ManticoreSearch::getConnections();
-        $this->assertCount(2, $count);
+        self::assertCount(2, $count);
     }
 
     public function testFacadeConnectionException(): void
@@ -125,8 +124,8 @@ class ServiceProviderTests extends TestCase
 
     public function testFacadeWorks(): void
     {
-        $client = ManticoreSearch::client();
-        $this->assertInstanceOf(Client::class, $client);
+        $client = \ManticoreSearch::client();
+        self::assertInstanceOf(Client::class, $client);
 
         $index = \ManticoreSearch::index('test');
         self::assertInstanceOf(Index::class, $index);
@@ -145,6 +144,6 @@ class ServiceProviderTests extends TestCase
     public function testFacadeClientHasMethods(): void
     {
         $index = \ManticoreSearch::client();
-        $this->assertEquals(get_class_methods($index), $this->client);
+        self::assertEquals(get_class_methods($index), $this->client);
     }
 }
