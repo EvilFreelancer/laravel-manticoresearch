@@ -7,6 +7,16 @@ filter:
 
 checks:
   php: true
+    excluded_dependencies:
+      - limedeck/phpunit-detailed-printer
+      - orchestra/testbench
+      - phpunit/phpunit
+      - roave/security-advisories
+      - phpstan/phpstan
+      - phpstan/phpstan-strict-rules
+      - thecodingmachine/phpstan-strict-rules
+      - ergebnis/phpstan-rules
+      - friendsofphp/php-cs-fixer
 
 coding_style:
   php:
