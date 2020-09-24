@@ -8,13 +8,13 @@
     "ext-json": "*",
     "ext-curl": "*",
     "manticoresoftware/manticoresearch-php": "dev-master",
-    "illuminate/support": "^6.0|^7.0",
-    "illuminate/contracts": "^6.0|^7.0"
+    "illuminate/support": "^6.0|^7.0|^8.0",
+    "illuminate/contracts": "^6.0|^7.0|^8.0"
   },
   "require-dev": {
-    "limedeck/phpunit-detailed-printer": "^5.0",
+    "limedeck/phpunit-detailed-printer": "^5.0|^6.0",
     "orchestra/testbench": "^4.0|^5.0",
-    "phpunit/phpunit": "^8.0",
+    "phpunit/phpunit": "^8.0|^9.0",
     "roave/security-advisories": "dev-master",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
