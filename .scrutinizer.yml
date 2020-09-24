@@ -21,6 +21,9 @@ build:
         before:
           - sudo apt-get update && sudo apt-get install -fyqq git ssh
   tests:
+    environment:
+      php:
+        version: 7.4
     override:
       - command: 'php ./vendor/bin/phpunit --coverage-clover=coverage-clover'
         coverage:
