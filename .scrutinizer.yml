@@ -16,10 +16,10 @@ coding_style:
 
 build:
   nodes:
-    environment:
-      php:
-        version: 7.4
     tests:
+      environment:
+        php:
+          version: 7.4
       dependencies:
         before:
           - sudo apt-get update && sudo apt-get install -fyqq git ssh
