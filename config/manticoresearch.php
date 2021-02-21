@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default configuraion of ManticoreSearch client, all available parameters
+ * Default configuration of ManticoreSearch client, all available parameters
  * can be found here https://github.com/manticoresoftware/manticoresearch-php/blob/master/docs/configuration.md
  */
 return [
@@ -27,13 +27,13 @@ return [
         ],
 
         // Second connection which will use list of hosts and minimal settings
-        'second' => [
+        'second'  => [
             'hosts' => [
-                'host'               => 'localhost',
-                'port'               => 9308,
-                'transport'          => 'Http',
+                'host'      => 'localhost',
+                'port'      => 9308,
+                'transport' => 'Http',
             ],
-        ]
+        ],
 
     ],
 
