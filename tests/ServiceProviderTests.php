@@ -19,6 +19,7 @@ class ServiceProviderTests extends TestCase
         '__construct',
         'search',
         'getDocumentById',
+        'getDocumentByIds',
         'addDocument',
         'addDocuments',
         'deleteDocument',
