@@ -8,6 +8,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Manticoresearch\Client;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Manager
@@ -39,7 +40,7 @@ class Manager
 
     /**
      * @param \Illuminate\Contracts\Container\Container $app
-     * @param \ManticoreSearch\Laravel\Factory          $factory
+     * @param \ManticoreSearch\Laravel\Factory $factory
      */
     public function __construct(Container $app, Factory $factory)
     {
@@ -51,15 +52,16 @@ class Manager
      * Retrieve or build the named connection.
      *
      * @param string|null $name Name of connection
+     * @param \Psr\Log\LoggerInterface|null $logger You may use any PSR logger in your application
      *
      * @return \ManticoreSearch\Client
      */
-    public function connection(string $name = null): Client
+    public function connection(string $name = null, LoggerInterface $logger = null): Client
     {
         $name = $name ?: $this->getDefaultConnection();
 
         if (!isset($this->connections[$name])) {
-            $client = $this->makeConnection($name);
+            $client = $this->makeConnection($name, $logger);
 
             $this->connections[$name] = $client;
         }
@@ -91,14 +93,15 @@ class Manager
      * Make a new connection.
      *
      * @param string $name Name of connection
+     * @param \Psr\Log\LoggerInterface|null $logger You may use any PSR logger in your application
      *
      * @return \ManticoreSearch\Client
      */
-    protected function makeConnection(string $name): Client
+    protected function makeConnection(string $name, LoggerInterface $logger = null): Client
     {
         $config = $this->getConfig($name);
 
-        return $this->factory->make($config);
+        return $this->factory->make($config, $logger);
     }
 
     /**
@@ -111,9 +114,9 @@ class Manager
      */
     protected function getConfig(string $name)
     {
-        $connections = $this->app['config']['manticoresearch.connections'];
+        $msConnections = $this->app['config']['manticoresearch.connections'];
 
-        if (null === $config = Arr::get($connections, $name)) {
+        if (null === $config = Arr::get($msConnections, $name)) {
             throw new InvalidArgumentException("ManticoreSearch connection [$name] not configured.");
         }
 
@@ -131,7 +134,7 @@ class Manager
     }
 
     /**
-     * Return all of the created connections.
+     * Return all the created connections.
      *
      * @return \Manticoresearch\Client
      */
@@ -144,7 +147,7 @@ class Manager
      * Dynamically pass methods to the default connection.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */

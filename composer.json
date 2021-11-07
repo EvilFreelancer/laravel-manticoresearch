@@ -6,10 +6,14 @@
   "require": {
     "php": "^7.2|^8.0",
     "ext-json": "*",
-    "ext-curl": "*",
+    "psr/log": ">=1.1",
     "manticoresoftware/manticoresearch-php": "^1.6",
     "illuminate/support": "^6.0|^7.0|^8.0",
     "illuminate/contracts": "^6.0|^7.0|^8.0"
+  },
+  "suggest": {
+    "ext-curl": "*",
+    "monolog/monolog":"*"
   },
   "require-dev": {
     "orchestra/testbench": "^4.0|^5.0|^6.0",

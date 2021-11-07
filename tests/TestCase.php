@@ -6,11 +6,6 @@ use ManticoreSearch\Laravel\Facade;
 use ManticoreSearch\Laravel\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
-/**
- * Class TestCase
- *
- * @package Tests
- */
 abstract class TestCase extends Orchestra
 {
     /**

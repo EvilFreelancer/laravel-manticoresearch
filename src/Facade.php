@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
 /**
  * Class Facade
  *
- * @package Cviebrock\LaravelManticoresearch
+ * @package ManticoreSearch\Laravel
  */
 class Facade extends BaseFacade
 {
