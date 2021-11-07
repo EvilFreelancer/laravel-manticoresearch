@@ -58,7 +58,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $config = ['host'=>'127.0.0.1', 'port'=>9308];
 $client = new \Manticoresearch\Client($config);
-$index = new \Manticoresearch\Index($client);
+$index  = new \Manticoresearch\Index($client);
 $index->setName('movies'); 
 ``` 
 
@@ -73,11 +73,11 @@ any connection (see the `defaultConnection` setting and `connections` array in
 the configuration file).
 
 ```php
-$index = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
-$pq = ManticoreSearch::connection('connectionName')->pq();
+$index   = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
+$pq      = ManticoreSearch::connection('connectionName')->pq();
 $cluster = ManticoreSearch::connection('connectionName')->cluster();
 $indices = ManticoreSearch::connection('connectionName')->indices();
-$nodes = ManticoreSearch::connection('connectionName')->nodes();
+$nodes   = ManticoreSearch::connection('connectionName')->nodes();
 
 // etc...
 ```
