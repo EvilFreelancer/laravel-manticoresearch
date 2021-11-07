@@ -8,11 +8,21 @@
 
 # Laravel ManticoreSearch plugin
 
-An easy way to use the [official ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php) in your Laravel or Lumen applications.
+An easiest way to use the [official ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php)
+in your Laravel or Lumen applications.
 
 ```sh
 composer require evilfreelancer/laravel-manticoresearch
 ```
+
+* [Post install](#Post-install)
+    * [Laravel](#Laravel)
+    * [Lumen](#Lumen)
+* [How to use](#How-to-use)
+* [Logging](#Logging)
+* [Links](#Links)
+
+## Post install
 
 ### Laravel
 
@@ -26,16 +36,32 @@ php artisan vendor:publish --provider="ManticoreSearch\Laravel\ServiceProvider"
 
 #### Alternative configuration method via .env file
 
-After you publish the configuration file as suggested above, you may configure ManticoreSearch
-by adding the following to your application's `.env` file (with appropriate values):
-  
-```ini
+After you publish the configuration file as suggested above, you may configure ManticoreSearch by adding the following
+to your application's `.env` file (with appropriate values):
+
+```dotenv
 MANTICORESEARCH_HOST=localhost
 MANTICORESEARCH_PORT=9200
 MANTICORESEARCH_TRANSPORT=Http
 MANTICORESEARCH_USER=
 MANTICORESEARCH_PASS=
 ```
+
+#### All available environments variables
+
+| Name                               | Default value  | Description |
+|------------------------------------|----------------|-------------|
+| MANTICORESEARCH_CONNECTION         | default        | Name of default connection |
+| MANTICORESEARCH_HOST               | localhost      | Address of host with Manticore server |
+| MANTICORESEARCH_PORT               | 9308           | Port number with REST server |
+| MANTICORESEARCH_TRANSPORT          | Http           | Type of transport, can be: Http, Https, PhpHttp or your custom driver |
+| MANTICORESEARCH_USER               |                | Username |
+| MANTICORESEARCH_PASS               |                | Password |
+| MANTICORESEARCH_TIMEOUT            | 5              | Timeout between requests |
+| MANTICORESEARCH_CONNECTION_TIMEOUT | 1              | Timeout before connection |
+| MANTICORESEARCH_PROXY              |                | Url of HTTP proxy server |
+| MANTICORESEARCH_PERSISTENT         | true           | Define whenever connection is persistent or not |
+| MANTICORESEARCH_RETRIES            | 2              | Amount of retries if connection is lost |
 
 ### Lumen
 
@@ -50,8 +76,9 @@ Manually copy the configuration file to your application.
 
 ## How to use
 
-The `ManticoreSearch` facade is just an entry point into the [ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php),
-so previously you might have used:
+The `ManticoreSearch` facade is just an entry point into
+the [ManticoreSearch client](https://github.com/manticoresoftware/manticoresearch-php), so previously you might have
+used:
 
 ```php
 require_once __DIR__ . '/vendor/autoload.php';
@@ -65,35 +92,37 @@ $index->setName('movies');
 Instead of these few lines above you can use single line solution:
 
 ```php
-$index = ManticoreSearch::index('movies');
+$index = \ManticoreSearch::index('movies');
 ```
 
-That will run the command on the default connection. You can run a command on
-any connection (see the `defaultConnection` setting and `connections` array in
-the configuration file).
+That will run the command on the default connection. You can run a command on any connection (see
+the [defaultConnection](https://github.com/EvilFreelancer/laravel-manticoresearch/blob/master/config/manticoresearch.php#L9)
+setting
+and [connections](https://github.com/EvilFreelancer/laravel-manticoresearch/blob/master/config/manticoresearch.php#L11)
+array in the configuration file).
 
 ```php
-$index   = ManticoreSearch::connection('connectionName')->index($nameOfIndex);
-$pq      = ManticoreSearch::connection('connectionName')->pq();
-$cluster = ManticoreSearch::connection('connectionName')->cluster();
-$indices = ManticoreSearch::connection('connectionName')->indices();
-$nodes   = ManticoreSearch::connection('connectionName')->nodes();
+$index   = \ManticoreSearch::connection('connectionName')->index($nameOfIndex);
+$pq      = \ManticoreSearch::connection('connectionName')->pq();
+$cluster = \ManticoreSearch::connection('connectionName')->cluster();
+$indices = \ManticoreSearch::connection('connectionName')->indices();
+$nodes   = \ManticoreSearch::connection('connectionName')->nodes();
 
 // etc...
 ```
 
-methods of Client class:
+methods of the Client class:
 
 ```php
-ManticoreSearch::connection('connectionName')->sql($params);
-ManticoreSearch::connection('connectionName')->replace($params);
-ManticoreSearch::connection('connectionName')->delete($params);
+\ManticoreSearch::connection('connectionName')->sql($params);
+\ManticoreSearch::connection('connectionName')->replace($params);
+\ManticoreSearch::connection('connectionName')->delete($params);
 
 // etc...
 ```
 
-Lumen users who aren't using facades will need to use dependency injection,
-or the application container in order to get the ManticoreSearch Index object:
+Lumen users who aren't using facades will need to use dependency injection, or the application container in order to get
+the ManticoreSearch Index object:
 
 ```php
 // using injection:
@@ -106,24 +135,47 @@ public function handle(\ManticoreSearch\Laravel\Manager $manticoresearch)
 $manticoreSearch = $this->app('manticoresearch');
 ```
 
-Of course, dependency injection and the application container work 
-for Laravel applications as well.
+Of course, dependency injection and the application container work for Laravel applications as well.
 
-## All available environments variables
+## Logging
 
-| Name                               | Default value  | Description | 
-|------------------------------------|----------------|-------------|
-| MANTICORESEARCH_CONNECTION         | default        | Name of default connection |
-| MANTICORESEARCH_HOST               | localhost      | Address of host with Manticore server |
-| MANTICORESEARCH_PORT               | 9308           | Port number with REST server |
-| MANTICORESEARCH_TRANSPORT          | Http           | Type of transport, can be: Http, Https, PhpHttp or your custom driver |
-| MANTICORESEARCH_USER               |                | Username |
-| MANTICORESEARCH_PASS               |                | Password |
-| MANTICORESEARCH_TIMEOUT            | 5              | Timeout between requests |
-| MANTICORESEARCH_CONNECTION_TIMEOUT | 1              | Timeout before connection |
-| MANTICORESEARCH_PROXY              |                | Url of HTTP proxy server |
-| MANTICORESEARCH_PERSISTENT         | true           | Define whenever connection is persistent or not |
-| MANTICORESEARCH_RETRIES            | 2              | Amount of retries if connection is lost |
+Since the PHP client of the ManticoreSearch supports logging through PSR-compatible loggers, you can use them in the
+same way as presented in the
+[official documentation](https://github.com/manticoresoftware/manticoresearch-php/blob/master/docs/logging.md).
+
+For example, you want to use the Monolog logger.
+
+```shell
+composer require monolog/monolog
+```
+
+By default, you need to write something like this:
+
+```php
+$logger = new \Monolog\Logger('name');
+$logger->pushHandler(new \Monolog\Handler\StreamHandler('/my/log.file', Logger::INFO));
+$config = ['host' => '127.0.0.1', 'port' => 9306];
+$client = new \Manticoresearch\Client($config, $logger);
+$index  = new \Manticoresearch\Index($client);
+$index->setName('movies');
+```
+
+But if you want to use the Monolog together with this library then you may simplify your code like this:
+
+```php
+$logger = new \Monolog\Logger('name');
+$logger->pushHandler(new \Monolog\Handler\StreamHandler('/my/log.file', Logger::INFO));
+
+$index = \ManticoreSearch::connection('connectionName', $logger)->index('movies');
+```
+
+## Testing
+
+Just install dev requirements `composer install --dev`, then execute following command from root of this library:
+
+```shell
+./vendor/bin/phpunit
+```
 
 ## Links
 
