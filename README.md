@@ -68,8 +68,16 @@ MANTICORESEARCH_PASS=
 If you work with Lumen, please register the service provider and configuration in `bootstrap/app.php`:
 
 ```php
-$app->register(ManticoreSearch\Laravel\ServiceProvider::class);
+// Enable shortname of facade
+$app->withFacades(true, [
+    'ManticoreSearch\Laravel\Facade' => 'Facade',
+]);
+
+// Register Config Files
 $app->configure('manticoresearch');
+
+// Register Service Providers
+$app->register(ManticoreSearch\Laravel\ServiceProvider::class);
 ```
 
 Manually copy the configuration file to your application.
